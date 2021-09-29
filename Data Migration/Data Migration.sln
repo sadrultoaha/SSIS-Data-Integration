@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "Data Migration", "Data Migration\Data Migration.dtproj", "{940ED49C-4C5A-4EE6-88A9-36E75BA58661}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{940ED49C-4C5A-4EE6-88A9-36E75BA58661}.Development|Default.ActiveCfg = Development
+		{940ED49C-4C5A-4EE6-88A9-36E75BA58661}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B2CE20DC-86C5-4A16-86BB-7694840EBD99}
+	EndGlobalSection
+EndGlobal
