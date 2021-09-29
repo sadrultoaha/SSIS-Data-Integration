@@ -1,0 +1,69 @@
+Dear Toaha,
+I hope now you have a comprehensive knowledge on SSIS. Here is a practice session on SSIS to verify your learning level.
+
+You are given two sql files named db.sql and audit.sql in attachment. You should run db.sql on MySQL Server and audit.sql on SQLServer.
+
+Now, make three packages and deploy on MSSQL that can:
+Package 1:
+  1.Truncate table on SQLServer
+Package 2:  
+  1. Dynamically integrate from MySQL databases
+  2. concatenate `current db name` with col1. Example: `db1-abcd`
+  3. Clean date format for col3
+  4. Insert into Audit on SQLServer
+Package 3:
+  1.Audit to ensure all rows inserted.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE @CurIdx int
+SET @CurIdx = 0
+
+DECLARE @Length int  
+SELECT @Length= COUNT(*) FROM connections
+
+DECLARE @CurDb nvarchar(50)
+
+WHILE @CurIdx < @Length
+BEGIN
+	Declare @execution_id bigint
+	EXEC [SSISDB].[catalog].[create_execution] @package_name=N'Package2.dtsx', @execution_id=@execution_id OUTPUT, @folder_name=N'SSIS_DeployedProject', @project_name=N'SSIS_PkgTask', @use32bitruntime=False, @reference_id=Null, @runinscaleout=False
+	Select @execution_id
+
+	SElECT @CurIdx = @CurIdx + 1
+	SELECT @CurDb = DbName from connections where Idx = @CurIdx  
+
+	DECLARE @var0 sql_variant = N'Dsn=mysql task ' + @CurDb +';'
+	EXEC [SSISDB].[catalog].[set_execution_parameter_value] @execution_id,  @object_type=20, @parameter_name=N'Source', @parameter_value=@var0
+	DECLARE @var1 sql_variant = N'' + @CurDb
+
+	EXEC [SSISDB].[catalog].[set_execution_parameter_value] @execution_id,  @object_type=20, @parameter_name=N'db', @parameter_value=@var1
+	DECLARE @var2 smallint = 1
+	EXEC [SSISDB].[catalog].[set_execution_parameter_value] @execution_id,  @object_type=50, @parameter_name=N'LOGGING_LEVEL', @parameter_value=@var2
+	EXEC [SSISDB].[catalog].[start_execution] @execution_id
+END
+
+GO
+
